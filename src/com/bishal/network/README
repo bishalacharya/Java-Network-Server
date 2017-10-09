@@ -1,0 +1,83 @@
+The following program contains Eclipse Java Project for NetworkServer.
+
+Server :- QueueServer.java
+Client :- QueueClient.java
+
+Requirements :-
+
+Java8 :- The given program wont compile without Java8. Please Use Java 8
+
+
+How To Compile :-
+
+The Project can be imported into eclipse & can be executed from it. However, it can also be run from the command line as follows:-
+
+Steps to Compile & Run
+
+javac com/icloud/network/QueueServer.java;
+java com/icloud/network/QueueServer;
+
+Steps to Run Sample Test Client:-
+javac  com/icloud/network/QueueServer.java;
+java com/icloud/network/QueueServer;
+
+Design :- 
+
+Server is implemented as a standalone Java Runnable Application.
+Server Supports three Operations : GET, PUT, DELETE but can be extended beyond by implementing OperationsInterface & adding it to
+requestProcessors.
+Error is defined as an Enum with the description field left blank so as to match the requirements. However, the description for Error
+Code should be added to provide more verbose description of Error.
+
+
+Implementation :-
+
+Implemented using eclipse & VI editor. Provided software contains a Server application [ QueueServer] & a client application [ QueueClient ]
+Did not mavenize or gradalize the given project for simplicity as I did not use any external dependencies besides Pure JDK libraries. 
+However, It would be a better idea to inject a build system to the project.
+
+
+Scalability :-
+
+Ideally the application should scale well with the number of sockets connections made to the server. However, I could not do much of
+scalability testing. The only test I performed are given below.
+
+1. Tested the Server by sending 10 parallel individual requests of PUT, GET, PUT, DELETE operations simultaneously. 
+Result : PASSED. The applications supports at least 10*4 parallel socket requests [ PUT, GET, PUT, DELETE]. However, I did not
+test server by changing the order of requests.
+
+2. Tested the Server by sending 100 parallel individual requests of PUT, GET, PUT, DELETE operations simultaneously. 
+Result : PASSED. The applications supports at least 100*4 parallel socket requests [ PUT, GET, PUT, DELETE]. However, I did not
+test server by changing the order of requests.
+
+3. Tested the Server by sending 1000 parallel individual requests of PUT, GET, PUT, DELETE operations simultaneously. 
+Result : PASSED. The applications supports at least 1000*4 parallel socket requests [ PUT, GET, PUT, DELETE]. However, I did not
+test server by changing the order of requests.
+  
+Result :- The application as per above test is scaling OK when I am increasing number of concurrent client threads upto 4000.
+I did not test the application beyond that LIMIT so I am not aware how it behaves when number of sockets connections exceeds 4000.
+More test needs to be done.
+
+Concurrency :-
+
+The server is designed to support multiple concurrent connections. CachedThreadPool has been chosen as the data structure considering
+the server needs to support more connections and we are not considering security [ DOS attacks ] at this moment. 
+If Security is one of the concerns, the cachedThreadPool implementation needs to be replaced with alternative data structure at the 
+expense of performance.
+
+
+Performance Test :-
+Did not do much performance Test & I am yet to produce benchmarks of speed-latency.
+
+
+Testability :-
+I did not consider more of Testability because I was not following a full process of software development. So, I skipped writing
+junit tests. My implementation also looks quick & dirty & does not seem to favor much for programmers doing TDD. However,
+I have included a sample java client to Test the Server. 
+
+
+References :-
+Oracle Java Docs were referred for the usage of following data structures.
+
+BlockingQueue, ArrayBolckingQueue, ExecutorService, CachedThreadPool, FixedThreadPool, Socket
+
